@@ -511,20 +511,17 @@ footer{
         backdrop-filter:blur(20px);
         max-height:0;
         overflow:hidden;
-        transition:max-height .4s ease, border-color .4s ease;
-        border-bottom:1px solid transparent;
+        transition:max-height .4s ease;
     }
 
     .nav-links.open{
         max-height:300px;
-        border-bottom:1px solid rgba(255,255,255,0.05);
     }
 
     .nav-links a{
         padding:18px 0;
         width:100%;
         text-align:center;
-        border-top:1px solid rgba(255,255,255,0.05);
     }
 
     .hero h1{
