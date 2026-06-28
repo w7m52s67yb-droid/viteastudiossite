@@ -244,9 +244,24 @@
         <p class="rf-notice">Reviews are public and visible to everyone.</p>
     </div>
 
-    <!-- REVIEWS LIST -->
-    <div class="reviews-list" id="reviews-list">
-        <div class="reviews-loading" id="reviews-loading">Loading reviews...</div>
+    <!-- RATING SUMMARY - score only -->
+    <div class="rating-summary" id="rating-summary" style="display:none">
+        <div class="rating-big">
+            <span class="rating-number" id="rating-avg">–</span>
+            <span class="rating-stars-big" id="rating-stars-big">☆☆☆☆☆</span>
+            <span class="rating-count" id="rating-count">0 reviews</span>
+        </div>
+    </div>
+
+    <!-- REVIEWS DIAGONAL MARQUEE -->
+    <div class="reviews-marquee-wrap" id="reviews-marquee-wrap" style="display:none">
+        <div class="reviews-track" id="reviews-track"></div>
+        <div class="reviews-fade-left"></div>
+        <div class="reviews-fade-right"></div>
+    </div>
+
+    <div class="reviews-empty-state" id="reviews-empty-state" style="display:none">
+        No reviews yet — be the first!
     </div>
 
 </section>

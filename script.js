@@ -178,30 +178,60 @@ async function saveReview(review) {
     if (!res.ok) throw new Error("Save failed");
 }
 
-/* --- Render reviews --- */
+/* --- Build a review card element --- */
+function makeCard(r) {
+    const card = document.createElement("div");
+    card.className = "review-card";
+    card.innerHTML = `
+        <div class="review-header">
+            <span class="review-name">${esc(r.name)}</span>
+            <span class="review-stars">${"★".repeat(r.stars)}${"☆".repeat(5 - r.stars)}</span>
+        </div>
+        <p class="review-text">${esc(r.text)}</p>
+        <span class="review-date">${r.date}</span>`;
+    return card;
+}
+
+/* --- Render rating summary --- */
+function renderSummary(reviews) {
+    const summary = document.getElementById("rating-summary");
+    if (!reviews.length) { if (summary) summary.style.display = "none"; return; }
+
+    summary.style.display = "flex";
+
+    const avg   = reviews.reduce((a,r) => a + r.stars, 0) / reviews.length;
+    const total = reviews.length;
+
+    document.getElementById("rating-avg").textContent       = avg.toFixed(1);
+    document.getElementById("rating-stars-big").textContent = "★".repeat(Math.round(avg)) + "☆".repeat(5 - Math.round(avg));
+    document.getElementById("rating-count").textContent     = total + (total === 1 ? " review" : " reviews");
+}
+
+/* --- Render diagonal horizontal marquee --- */
 function renderReviews(reviews) {
-    const list = document.getElementById("reviews-list");
-    if (!list) return;
-    list.innerHTML = "";
+    const wrap       = document.getElementById("reviews-marquee-wrap");
+    const track      = document.getElementById("reviews-track");
+    const emptyState = document.getElementById("reviews-empty-state");
+
+    renderSummary(reviews);
 
     if (!reviews.length) {
-        list.innerHTML = '<div class="reviews-empty">No reviews yet — be the first!</div>';
+        if (wrap)       wrap.style.display       = "none";
+        if (emptyState) emptyState.style.display = "block";
         return;
     }
 
-    reviews.forEach((r, i) => {
-        const card = document.createElement("div");
-        card.className = "review-card";
-        card.style.animationDelay = (i * 0.06) + "s";
-        card.innerHTML = `
-            <div class="review-header">
-                <span class="review-name">${esc(r.name)}</span>
-                <span class="review-stars">${"★".repeat(r.stars)}${"☆".repeat(5 - r.stars)}</span>
-            </div>
-            <p class="review-text">${esc(r.text)}</p>
-            <span class="review-date">${r.date}</span>`;
-        list.appendChild(card);
-    });
+    if (wrap)       wrap.style.display       = "block";
+    if (emptyState) emptyState.style.display = "none";
+
+    track.innerHTML = "";
+
+    // Duplicate until we have enough cards to fill the track seamlessly
+    let pool = [...reviews];
+    while (pool.length < 12) pool = [...pool, ...reviews];
+
+    // Build two sets for seamless loop
+    [...pool, ...pool].forEach(r => track.appendChild(makeCard(r)));
 }
 
 /* --- Submit --- */
