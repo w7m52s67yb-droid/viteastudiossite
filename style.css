@@ -83,7 +83,7 @@ body{
 }
 
 /* Ensure content sits above starfield */
-nav, header, section, footer{
+nav, header, section, footer, main{
     position:relative;
     z-index:1;
 }
@@ -586,6 +586,40 @@ section.active .prize-card:hover{
     line-height:1.5;
 }
 
+/* REVIEWS PAGE */
+.reviews-page{
+    max-width:800px;
+    margin:0 auto;
+    padding:140px 5% 80px;
+}
+
+.reviews-page-header{
+    text-align:center;
+    margin-bottom:50px;
+}
+
+.reviews-page-header h1{
+    font-size:clamp(2.5rem, 6vw, 4rem);
+    font-weight:800;
+    margin-bottom:24px;
+    letter-spacing:-1px;
+    background:linear-gradient(135deg, #ffffff 0%, #c8d8ff 50%, #ffffff 100%);
+    background-size:200% auto;
+    -webkit-background-clip:text;
+    background-clip:text;
+    -webkit-text-fill-color:transparent;
+    animation:heroShimmer 6s linear infinite;
+}
+
+.reviews-page-header .reviews-subtitle{
+    margin-top:0;
+    font-size:1.1rem;
+}
+
+.nav-active{
+    color:var(--accent) !important;
+}
+
 /* REVIEWS SECTION */
 .reviews-subtitle{
     text-align:center;
@@ -928,6 +962,13 @@ section.active .prize-card:hover{
     color:#333;
     padding:40px 0;
     font-size:.95rem;
+}
+
+.reviews-loading-text{
+    color:#333;
+    padding:60px 40px;
+    font-size:.9rem;
+    white-space:nowrap;
 }
 
 @keyframes shake{
