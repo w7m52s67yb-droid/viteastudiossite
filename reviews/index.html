@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Community reviews for Vitea Studios — share your experience with our games and community.">
+    <meta name="theme-color" content="#070707">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon-180.png">
+    <title>Reviews — Vitea Studios</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+<div class="scroll-progress" id="scroll-progress"></div>
+<div class="stars"></div>
+
+<nav>
+    <div class="logo">
+        <a href="/" style="display:flex;align-items:center;gap:12px;text-decoration:none;color:inherit;">
+            <img src="/logo.PNG" alt="Vitea Studios logo">
+            <span>Vitea Studios</span>
+        </a>
+    </div>
+    <div class="nav-links" id="nav-links">
+        <a href="/#about">About</a>
+        <a href="/#stats">Stats</a>
+        <a href="/#projects">Projects</a>
+        <a href="/#community">Community</a>
+        <a href="/reviews" class="nav-active">Reviews</a>
+    </div>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+</nav>
+
+<main class="reviews-page">
+
+    <div class="reviews-page-header">
+        <h1>Community Reviews</h1>
+        <p class="reviews-subtitle">Played our games or part of our community? Leave a review.</p>
+    </div>
+
+    <!-- SUBMIT FORM -->
+    <div class="review-form-card">
+        <div class="review-form-top">
+            <div class="rf-field">
+                <label for="rf-name">Your name</label>
+                <input type="text" id="rf-name" maxlength="32" placeholder="e.g. CoolPlayer123">
+            </div>
+            <div class="rf-stars" id="rf-stars">
+                <span data-v="1">★</span>
+                <span data-v="2">★</span>
+                <span data-v="3">★</span>
+                <span data-v="4">★</span>
+                <span data-v="5">★</span>
+            </div>
+        </div>
+        <div class="rf-field">
+            <label for="rf-text">Your review</label>
+            <textarea id="rf-text" maxlength="300" placeholder="Share your experience with Vitea Studios..."></textarea>
+        </div>
+        <div class="rf-form-footer">
+            <span class="rf-char-count" id="rf-chars">0 / 300</span>
+            <button class="btn rf-submit" id="rf-submit">Post Review</button>
+        </div>
+        <p class="rf-notice">Reviews are public and visible to everyone.</p>
+    </div>
+
+    <!-- RATING SUMMARY -->
+    <div class="rating-summary" id="rating-summary" style="display:none">
+        <div class="rating-big">
+            <span class="rating-number" id="rating-avg">–</span>
+            <span class="rating-stars-big" id="rating-stars-big">☆☆☆☆☆</span>
+            <span class="rating-count" id="rating-count">0 reviews</span>
+        </div>
+    </div>
+
+    <!-- REVIEWS MARQUEE -->
+    <div class="reviews-marquee-wrap" id="reviews-marquee-wrap">
+        <div class="reviews-track" id="reviews-track"><div class="reviews-loading-text">Loading reviews...</div></div>
+        <div class="reviews-fade-left"></div>
+        <div class="reviews-fade-right"></div>
+    </div>
+
+    <div class="reviews-empty-state" id="reviews-empty-state" style="display:none">
+        No reviews yet — be the first!
+    </div>
+
+</main>
+
+<footer>
+    <div class="footer-inner">
+        <div class="footer-logo">
+            <img src="/logo.PNG" alt="Vitea Studios">
+            <span>Vitea Studios</span>
+        </div>
+        <p class="footer-copy">© 2026 Vitea Studios Corporation — All rights reserved.</p>
+        <div class="footer-links">
+            <a href="https://discord.gg/pdv" target="_blank" rel="noopener" aria-label="Discord">
+                <svg viewBox="0 0 127.14 96.36" fill="currentColor"><path d="M107.7 8.07A105.15 105.15 0 0 0 81.47 0a72.06 72.06 0 0 0-3.36 6.83 97.68 97.68 0 0 0-29.11 0A72.37 72.37 0 0 0 45.64 0a105.89 105.89 0 0 0-26.25 8.09C2.79 32.65-1.71 56.6.54 80.21a105.73 105.73 0 0 0 32.17 16.15 77.7 77.7 0 0 0 6.89-11.11 68.42 68.42 0 0 1-10.85-5.18c.91-.66 1.8-1.34 2.66-2a75.57 75.57 0 0 0 64.32 0c.87.71 1.76 1.39 2.66 2a68.68 68.68 0 0 1-10.87 5.19 77 77 0 0 0 6.89 11.1 105.25 105.25 0 0 0 32.19-16.14c2.64-27.38-4.51-51.11-18.9-72.15ZM42.45 65.69C36.18 65.69 31 60 31 53s5-12.74 11.43-12.74S54 46 53.89 53s-5.05 12.69-11.44 12.69Zm42.24 0C78.41 65.69 73.25 60 73.25 53s5-12.74 11.44-12.74S96.23 46 96.12 53s-5.04 12.69-11.43 12.69Z"/></svg>
+            </a>
+            <a href="https://x.com/viteadev" target="_blank" rel="noopener" aria-label="Twitter / X">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.253 5.622 5.911-5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            </a>
+            <a href="https://www.youtube.com/@viteastudios" target="_blank" rel="noopener" aria-label="YouTube">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+            </a>
+        </div>
+    </div>
+</footer>
+
+<script src="/script.js"></script>
+
+</body>
+</html>
