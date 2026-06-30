@@ -23,39 +23,46 @@ document.querySelectorAll("section").forEach(s => {
 const navToggle = document.getElementById("nav-toggle");
 const navLinks  = document.getElementById("nav-links");
 
-navToggle.addEventListener("click", () => {
-    const isOpen = navLinks.classList.toggle("open");
-    navToggle.classList.toggle("open");
-    navToggle.setAttribute("aria-expanded", isOpen);
-});
-
-navLinks.querySelectorAll("a").forEach(link => {
-    link.addEventListener("click", () => {
-        navLinks.classList.remove("open");
-        navToggle.classList.remove("open");
-        navToggle.setAttribute("aria-expanded", "false");
+if (navToggle && navLinks) {
+    navToggle.addEventListener("click", () => {
+        const isOpen = navLinks.classList.toggle("open");
+        navToggle.classList.toggle("open");
+        navToggle.setAttribute("aria-expanded", isOpen);
     });
-});
+
+    navLinks.querySelectorAll("a").forEach(link => {
+        link.addEventListener("click", () => {
+            navLinks.classList.remove("open");
+            navToggle.classList.remove("open");
+            navToggle.setAttribute("aria-expanded", "false");
+        });
+    });
+}
 
 /* ================================================
    SCROLL PROGRESS BAR
    ================================================ */
 const progressBar = document.getElementById("scroll-progress");
-window.addEventListener("scroll", () => {
-    const scrollTop    = document.documentElement.scrollTop;
-    const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-    progressBar.style.width = ((scrollTop / scrollHeight) * 100) + "%";
-}, { passive: true });
+if (progressBar) {
+    window.addEventListener("scroll", () => {
+        const scrollTop    = document.documentElement.scrollTop;
+        const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        progressBar.style.width = ((scrollTop / scrollHeight) * 100) + "%";
+    }, { passive: true });
+}
 
 /* ================================================
    COMPETITION COUNTDOWN
    ================================================ */
-const eventEnd = new Date("2026-07-24T23:59:59").getTime();
+const eventEnd  = new Date("2026-07-24T23:59:59").getTime();
+const compTimer = document.getElementById("comp-timer");
 
 function updateTimer() {
+    if (!compTimer) return; // timer markup not present on this page (e.g. reviews.html)
+
     const diff = eventEnd - Date.now();
     if (diff <= 0) {
-        document.getElementById("comp-timer").innerHTML = '<div class="timer-ended">Event has ended</div>';
+        compTimer.innerHTML = '<div class="timer-ended">Event has ended</div>';
         return;
     }
     const pad = n => String(Math.floor(n)).padStart(2, "0");
@@ -64,8 +71,10 @@ function updateTimer() {
     document.getElementById("timer-mins").textContent  = pad((diff % 3600000) / 60000);
     document.getElementById("timer-secs").textContent  = pad((diff % 60000) / 1000);
 }
-updateTimer();
-setInterval(updateTimer, 1000);
+if (compTimer) {
+    updateTimer();
+    setInterval(updateTimer, 1000);
+}
 
 /* ================================================
    3D TILT ON STAT CARDS
