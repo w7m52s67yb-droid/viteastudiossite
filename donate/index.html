@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Support Vitea Studios — help us keep building games and growing the community.">
+    <meta name="theme-color" content="#070707">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon-180.png">
+    <title>Donate to Vitea Studios</title>
+    <link rel="stylesheet" href="/style.css">
+    <style>
+        .donate-page { position:relative; z-index:1; padding-top:100px; }
+
+        /* HERO */
+        .donate-hero {
+            padding: 80px 10% 70px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .donate-hero-glow {
+            position:absolute; inset:0; pointer-events:none;
+            background:
+                radial-gradient(ellipse 55% 45% at 50% 0%, rgba(91,140,255,0.07) 0%, transparent 70%),
+                radial-gradient(ellipse 35% 40% at 15% 70%, rgba(100,220,150,0.05) 0%, transparent 70%),
+                radial-gradient(ellipse 35% 40% at 85% 70%, rgba(255,160,80,0.04) 0%, transparent 70%);
+        }
+        .donate-hero h1 {
+            font-size: clamp(2.8rem, 7vw, 5rem);
+            font-weight: 900;
+            letter-spacing: -2px;
+            line-height: 1.05;
+            margin-bottom: 20px;
+        }
+        .donate-hero h1 span {
+            background: linear-gradient(135deg, #5b8cff 0%, #a78bfa 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .donate-hero > p {
+            color: var(--text-muted);
+            font-size: clamp(.95rem, 2vw, 1.1rem);
+            line-height: 1.8;
+            max-width: 520px;
+            margin: 0 auto 56px;
+        }
+
+        /* GOAL BAR */
+        .goal-wrap {
+            max-width: 540px;
+            margin: 0 auto 72px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 28px 32px;
+        }
+        .goal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 14px;
+        }
+        .goal-label {
+            font-size: .72rem;
+            font-weight: 700;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            color: #555;
+        }
+        .goal-amounts {
+            font-size: .85rem;
+            color: var(--text-muted);
+        }
+        .goal-amounts strong { color: #fff; font-weight: 700; }
+        .goal-track {
+            height: 8px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 100px;
+            overflow: hidden;
+        }
+        .goal-fill {
+            height: 100%;
+            border-radius: 100px;
+            background: linear-gradient(90deg, #5b8cff 0%, #a78bfa 100%);
+            width: 0%;
+            transition: width 1.2s cubic-bezier(.4,0,.2,1);
+        }
+        .goal-note {
+            margin-top: 12px;
+            font-size: .75rem;
+            color: #3a3a3a;
+            text-align: center;
+        }
+
+        /* DIVIDER */
+        .donate-divider {
+            height: 1px;
+            background: linear-gradient(to right, transparent, var(--border), transparent);
+            margin: 0 10%;
+        }
+
+        /* METHODS SECTION */
+        .donate-methods {
+            padding: 72px 10% 100px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        .donate-methods-header {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+        .section-label {
+            display: inline-block;
+            font-size: .72rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: #555;
+            margin-bottom: 12px;
+        }
+        .section-title {
+            font-size: clamp(1.5rem, 3.5vw, 2.2rem);
+            font-weight: 800;
+            letter-spacing: -1px;
+        }
+
+        /* METHOD CARDS */
+        .method-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .method-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 36px 32px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            transition: border-color .3s, transform .3s;
+        }
+        .method-card:hover {
+            border-color: var(--border-hover);
+            transform: translateY(-4px);
+        }
+
+        /* PayPal card accent */
+        .method-card.paypal-card { border-color: rgba(0,112,243,0.2); }
+        .method-card.paypal-card:hover { border-color: rgba(0,112,243,0.45); box-shadow: 0 16px 40px rgba(0,112,243,0.07); }
+
+        /* Crypto card accent */
+        .method-card.crypto-card { border-color: rgba(247,147,26,0.15); }
+        .method-card.crypto-card:hover { border-color: rgba(247,147,26,0.35); box-shadow: 0 16px 40px rgba(247,147,26,0.06); }
+
+        .method-icon-row {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+        .method-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            flex-shrink: 0;
+        }
+        .method-icon.pp  { background: rgba(0,112,243,0.1);   border: 1px solid rgba(0,112,243,0.2); }
+        .method-icon.btc { background: rgba(247,147,26,0.1);  border: 1px solid rgba(247,147,26,0.2); }
+        .method-icon.eth { background: rgba(98,126,234,0.1);  border: 1px solid rgba(98,126,234,0.2); }
+        .method-icon.ltc { background: rgba(190,190,190,0.08); border: 1px solid rgba(190,190,190,0.15); }
+
+        .method-name {
+            font-size: 1.05rem;
+            font-weight: 700;
+        }
+        .method-sub {
+            font-size: .78rem;
+            color: #555;
+            margin-top: 2px;
+        }
+        .method-desc {
+            color: var(--text-muted);
+            font-size: .875rem;
+            line-height: 1.65;
+        }
+
+        .btn-paypal {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 13px 28px;
+            border-radius: 100px;
+            font-size: .9rem;
+            font-weight: 700;
+            text-decoration: none;
+            background: #003087;
+            color: #fff;
+            border: 1px solid rgba(255,255,255,0.08);
+            transition: background .25s, transform .2s;
+            align-self: flex-start;
+        }
+        .btn-paypal:hover { background: #0042b2; transform: translateY(-2px); }
+
+        .crypto-coins { display: flex; flex-direction: column; gap: 14px; }
+
+        .coin-row {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 14px;
+            padding: 14px 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .coin-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: .9rem;
+            flex-shrink: 0;
+        }
+        .coin-icon.btc { background: rgba(247,147,26,0.15); }
+        .coin-icon.eth { background: rgba(98,126,234,0.15); }
+        .coin-icon.ltc { background: rgba(190,190,190,0.1); }
+
+        .coin-info { flex: 1; min-width: 0; }
+        .coin-ticker {
+            font-size: .7rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: #555;
+            margin-bottom: 3px;
+        }
+        .coin-address {
+            font-size: .72rem;
+            font-family: 'SF Mono', 'Fira Mono', monospace;
+            color: var(--text-muted);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .copy-btn {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 8px;
+            padding: 6px 12px;
+            font-size: .72rem;
+            font-weight: 600;
+            color: #555;
+            cursor: pointer;
+            transition: background .2s, color .2s, border-color .2s;
+            flex-shrink: 0;
+            font-family: inherit;
+        }
+        .copy-btn:hover { background: rgba(255,255,255,0.08); color: #fff; border-color: rgba(255,255,255,0.15); }
+        .copy-btn.copied { color: #4ade80; border-color: rgba(74,222,128,0.3); background: rgba(74,222,128,0.06); }
+
+        /* NOTICE */
+        .donate-notice {
+            text-align: center;
+            padding: 0 10% 60px;
+            color: #333;
+            font-size: .8rem;
+            line-height: 1.7;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        @media (max-width: 640px) {
+            .goal-wrap { padding: 22px 20px; }
+            .method-card { padding: 28px 22px; }
+            .donate-methods { padding: 56px 6% 80px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="scroll-progress" id="scroll-progress"></div>
+<div class="stars"></div>
+
+<nav>
+    <div class="logo">
+        <a href="/" style="display:flex;align-items:center;gap:12px;text-decoration:none;color:inherit;">
+            <img src="/logo.PNG" alt="Vitea Studios logo">
+            <span>Vitea Studios</span>
+        </a>
+    </div>
+    <div class="nav-links" id="nav-links">
+        <a href="/#about">About</a>
+        <a href="/#projects">Projects</a>
+        <a href="/#community">Community</a>
+        <a href="/events">Events</a>
+        <a href="/reviews">Reviews</a>
+        <a href="/donate" class="nav-active">Donate</a>
+    </div>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+</nav>
+
+<main class="donate-page">
+
+    <!-- HERO -->
+    <section class="donate-hero">
+        <div class="donate-hero-glow"></div>
+        <h1>Keep Vitea<br><span>Studios alive</span></h1>
+        <p>Every contribution, big or small, goes directly towards keeping our games running, covering advertising costs, and building new things for the community. As a bonus, donating any amount will give you a exclusive role in the discord server, roblox group & etc.</p>
+
+        <!-- GOAL BAR -->
+        <div class="goal-wrap">
+            <div class="goal-header">
+                <span class="goal-label">Monthly goal</span>
+                <span class="goal-amounts"><strong id="goal-raised">$0</strong> of $100</span>
+            </div>
+            <div class="goal-track">
+                <div class="goal-fill" id="goal-fill"></div>
+            </div>
+            <p class="goal-note">Thank you to everyone who contributes. 💙</p>
+        </div>
+    </section>
+
+    <div class="donate-divider"></div>
+
+    <!-- PAYMENT METHODS -->
+    <section class="donate-methods">
+        <div class="donate-methods-header">
+            <span class="section-label">Payment methods</span>
+            <h2 class="section-title">Choose how to donate</h2>
+        </div>
+
+        <div class="method-cards">
+
+            <!-- PAYPAL -->
+            <div class="method-card paypal-card">
+                <div class="method-icon-row">
+                    <div class="method-icon pp">
+                        <svg viewBox="0 0 24 24" fill="#0070f3" width="22" height="22"><path d="M7.076 21.337H2.47a.641.641 0 0 1-.633-.74L4.944.901C5.026.382 5.474 0 5.998 0h7.46c2.57 0 4.578.543 5.69 1.81 1.01 1.15 1.304 2.42 1.012 4.287-.023.143-.047.288-.077.437-.983 5.05-4.349 6.797-8.647 6.797h-2.19c-.524 0-.968.382-1.05.9l-1.12 7.106zm14.146-14.42a3.35 3.35 0 0 0-.607-.541c-.013.076-.026.175-.041.254-.93 4.778-4.005 7.201-9.138 7.201h-2.19a.563.563 0 0 0-.556.479l-1.187 7.527h-.506l-.24 1.516a.56.56 0 0 0 .554.647h3.882c.46 0 .85-.334.922-.788.06-.26.76-4.852.816-5.09a.932.932 0 0 1 .923-.788h.58c3.76 0 6.705-1.528 7.565-5.946.36-1.847.174-3.388-.777-4.471z"/></svg>
+                    </div>
+                    <div>
+                        <div class="method-name">PayPal</div>
+                        <div class="method-sub">paypal.me/viteadevs</div>
+                    </div>
+                </div>
+                <p class="method-desc">The simplest option, pay with your PayPal balance, bank account, or card. No account required for card payments.</p>
+                <a href="https://paypal.me/viteadevs" target="_blank" rel="noopener" class="btn-paypal">
+                    <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M7.076 21.337H2.47a.641.641 0 0 1-.633-.74L4.944.901C5.026.382 5.474 0 5.998 0h7.46c2.57 0 4.578.543 5.69 1.81 1.01 1.15 1.304 2.42 1.012 4.287-.023.143-.047.288-.077.437-.983 5.05-4.349 6.797-8.647 6.797h-2.19c-.524 0-.968.382-1.05.9l-1.12 7.106zm14.146-14.42a3.35 3.35 0 0 0-.607-.541c-.013.076-.026.175-.041.254-.93 4.778-4.005 7.201-9.138 7.201h-2.19a.563.563 0 0 0-.556.479l-1.187 7.527h-.506l-.24 1.516a.56.56 0 0 0 .554.647h3.882c.46 0 .85-.334.922-.788.06-.26.76-4.852.816-5.09a.932.932 0 0 1 .923-.788h.58c3.76 0 6.705-1.528 7.565-5.946.36-1.847.174-3.388-.777-4.471z"/></svg>
+                    Donate via PayPal
+                </a>
+            </div>
+
+            <!-- CRYPTO -->
+            <div class="method-card crypto-card">
+                <div class="method-icon-row">
+                    <div class="method-icon btc">₿</div>
+                    <div>
+                        <div class="method-name">Cryptom Currency</div>
+                        <div class="method-sub">BTC · ETH · LTC</div>
+                    </div>
+                </div>
+                <p class="method-desc">Send crypto directly to our wallet, no middleman, no fees beyond the network. Copy the address for the coin you want to use.</p>
+
+                <div class="crypto-coins">
+                    <div class="coin-row">
+                        <div class="coin-icon btc">₿</div>
+                        <div class="coin-info">
+                            <div class="coin-ticker">Bitcoin | BTC</div>
+                            <div class="coin-address">bc1q4qln4eh7xuf2d89pdc9spjvd05knqt9xl0msgl</div>
+                        </div>
+                        <button class="copy-btn" data-addr="bc1q4qln4eh7xuf2d89pdc9spjvd05knqt9xl0msgl">Copy</button>
+                    </div>
+                    <div class="coin-row">
+                        <div class="coin-icon eth">Ξ</div>
+                        <div class="coin-info">
+                            <div class="coin-ticker">Ethereum | ETH</div>
+                            <div class="coin-address">0x99261907393Dab36e1C4B46D7B5Fb546F333E03B</div>
+                        </div>
+                        <button class="copy-btn" data-addr="0x99261907393Dab36e1C4B46D7B5Fb546F333E03B">Copy</button>
+                    </div>
+                    <div class="coin-row">
+                        <div class="coin-icon ltc">Ł</div>
+                        <div class="coin-info">
+                            <div class="coin-ticker">Litecoin | LTC</div>
+                            <div class="coin-address">ltc1q6p9shftrw68ul2s6f303rnyr9awjzqn8g2nusz</div>
+                        </div>
+                        <button class="copy-btn" data-addr="ltc1q6p9shftrw68ul2s6f303rnyr9awjzqn8g2nusz">Copy</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <p class="donate-notice">Donations are voluntary and non-refundable. Vitea Studios is an independent game studio, your support goes directly to development and advertising costs. Thank you. 🙏</p>
+
+</main>
+
+<footer>
+    <div class="footer-inner">
+        <div class="footer-logo">
+            <img src="/logo.PNG" alt="Vitea Studios">
+            <span>Vitea Studios</span>
+        </div>
+        <p class="footer-copy">© 2023-2026 Vitea Studios Network — All rights reserved.</p>
+        <div class="footer-links">
+            <a href="https://discord.gg/pdv" target="_blank" rel="noopener" aria-label="Discord">
+                <svg viewBox="0 0 127.14 96.36" fill="currentColor"><path d="M107.7 8.07A105.15 105.15 0 0 0 81.47 0a72.06 72.06 0 0 0-3.36 6.83 97.68 97.68 0 0 0-29.11 0A72.37 72.37 0 0 0 45.64 0a105.89 105.89 0 0 0-26.25 8.09C2.79 32.65-1.71 56.6.54 80.21a105.73 105.73 0 0 0 32.17 16.15 77.7 77.7 0 0 0 6.89-11.11 68.42 68.42 0 0 1-10.85-5.18c.91-.66 1.8-1.34 2.66-2a75.57 75.57 0 0 0 64.32 0c.87.71 1.76 1.39 2.66 2a68.68 68.68 0 0 1-10.87 5.19 77 77 0 0 0 6.89 11.1 105.25 105.25 0 0 0 32.19-16.14c2.64-27.38-4.51-51.11-18.9-72.15ZM42.45 65.69C36.18 65.69 31 60 31 53s5-12.74 11.43-12.74S54 46 53.89 53s-5.05 12.69-11.44 12.69Zm42.24 0C78.41 65.69 73.25 60 73.25 53s5-12.74 11.44-12.74S96.23 46 96.12 53s-5.04 12.69-11.43 12.69Z"/></svg>
+            </a>
+            <a href="https://x.com/viteadev" target="_blank" rel="noopener" aria-label="Twitter / X">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.253 5.622 5.911-5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            </a>
+            <a href="https://www.youtube.com/@viteastudios" target="_blank" rel="noopener" aria-label="YouTube">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+            </a>
+        </div>
+    </div>
+</footer>
+
+<script src="/script.js"></script>
+<script>
+    window.addEventListener("load", () => {
+        const fill = document.getElementById("goal-fill");
+        const raised = document.getElementById("goal-raised");
+        const goal = 100;
+        const current = 5; 
+        const pct = Math.min((current / goal) * 100, 100);
+        setTimeout(() => {
+            fill.style.width = pct + "%";
+            raised.textContent = "$" + current;
+        }, 300);
+    });
+
+    document.querySelectorAll(".copy-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+            navigator.clipboard.writeText(btn.dataset.addr).then(() => {
+                btn.textContent = "Copied!";
+                btn.classList.add("copied");
+                setTimeout(() => { btn.textContent = "Copy"; btn.classList.remove("copied"); }, 2000);
+            });
+        });
+    });
+</script>
+
+</body>
+</html>
