@@ -1,5 +1,3 @@
-console.log("Vitea Studios Loaded");
-
 /* ================================================
    SCROLL REVEAL
    ================================================ */
@@ -40,15 +38,121 @@ if (navToggle && navLinks) {
 }
 
 /* ================================================
-   SCROLL PROGRESS BAR
+   CARD / TILE SPOTLIGHT
    ================================================ */
-const progressBar = document.getElementById("scroll-progress");
-if (progressBar) {
-    window.addEventListener("scroll", () => {
-        const scrollTop    = document.documentElement.scrollTop;
-        const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-        progressBar.style.width = ((scrollTop / scrollHeight) * 100) + "%";
-    }, { passive: true });
+document.querySelectorAll(".card, .tile").forEach(el => {
+    el.addEventListener("pointermove", e => {
+        const r = el.getBoundingClientRect();
+        el.style.setProperty("--mx", (e.clientX - r.left) + "px");
+        el.style.setProperty("--my", (e.clientY - r.top) + "px");
+    });
+});
+
+/* ================================================
+   COPY EMAIL
+   ================================================ */
+const copyBtn    = document.getElementById("copy-email");
+const copyStatus = document.getElementById("copy-status");
+
+if (copyBtn) {
+    const copyLabel = copyBtn.querySelector(".copy-label");
+    let copyTimer;
+
+    async function copyText(text) {
+        if (navigator.clipboard && window.isSecureContext) {
+            await navigator.clipboard.writeText(text);
+            return;
+        }
+        // Fallback for non-secure contexts / older browsers
+        const ta = document.createElement("textarea");
+        ta.value = text;
+        ta.setAttribute("readonly", "");
+        ta.style.position = "fixed";
+        ta.style.opacity  = "0";
+        document.body.appendChild(ta);
+        ta.select();
+        const ok = document.execCommand("copy");
+        document.body.removeChild(ta);
+        if (!ok) throw new Error("Copy failed");
+    }
+
+    copyBtn.addEventListener("click", async () => {
+        clearTimeout(copyTimer);
+        try {
+            await copyText(copyBtn.dataset.email);
+            copyBtn.classList.add("copied");
+            copyLabel.textContent = "Copied!";
+            if (copyStatus) copyStatus.textContent = "Email address copied to clipboard";
+        } catch {
+            copyLabel.textContent = "Press Ctrl+C";
+            if (copyStatus) copyStatus.textContent = "Could not copy automatically";
+        }
+        copyTimer = setTimeout(() => {
+            copyBtn.classList.remove("copied");
+            copyLabel.textContent = "Copy";
+            if (copyStatus) copyStatus.textContent = "";
+        }, 2000);
+    });
+}
+
+/* ================================================
+   NAV STATE + HERO VIDEO
+   ================================================ */
+const siteNav = document.getElementById("site-nav");
+
+function onScroll() {
+    // Home page: nav is transparent over the video until the page scrolls
+    if (siteNav) siteNav.classList.toggle("scrolled", window.scrollY > 24);
+}
+window.addEventListener("scroll", onScroll, { passive: true });
+onScroll();
+
+const heroVideo = document.getElementById("hero-video");
+
+if (heroVideo) {
+    const hero     = heroVideo.closest("header") || heroVideo;
+    const soundBtn = document.getElementById("sound-toggle");
+    const reduced  = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    heroVideo.muted = true; // required for autoplay in all browsers
+
+    const safePlay = () => {
+        const p = heroVideo.play();
+        if (p && typeof p.catch === "function") p.catch(() => {});
+    };
+
+    function syncSound() {
+        if (!soundBtn) return;
+        soundBtn.classList.toggle("is-off", heroVideo.muted);
+        soundBtn.setAttribute("aria-label", heroVideo.muted ? "Turn video sound on" : "Turn video sound off");
+    }
+
+    if (reduced) {
+        // Reduced motion: show the still poster, no playback, no sound button
+        heroVideo.removeAttribute("autoplay");
+        heroVideo.preload = "none";
+        heroVideo.pause();
+        heroVideo.load();
+        if (soundBtn) soundBtn.hidden = true;
+    } else {
+        if (soundBtn) {
+            soundBtn.addEventListener("click", () => {
+                heroVideo.muted = !heroVideo.muted;
+                if (heroVideo.paused) safePlay();
+                syncSound();
+            });
+        }
+
+        // Pause (and silence) the video whenever the hero is scrolled out of view
+        if ("IntersectionObserver" in window) {
+            new IntersectionObserver(([entry]) => {
+                if (entry.isIntersecting) safePlay();
+                else                      heroVideo.pause();
+            }, { threshold: 0.05 }).observe(hero);
+        }
+    }
+
+    syncSound();
 }
 
 /* ================================================
@@ -77,17 +181,87 @@ if (compTimer) {
 }
 
 /* ================================================
-   3D TILT ON STAT CARDS
+   COOKIE CONSENT
    ================================================ */
-document.querySelectorAll(".stat-card").forEach(card => {
-    card.addEventListener("mousemove", e => {
-        const r  = card.getBoundingClientRect();
-        const rx = ((e.clientY - r.top  - r.height / 2) / (r.height / 2)) * -6;
-        const ry = ((e.clientX - r.left - r.width  / 2) / (r.width  / 2)) *  6;
-        card.style.transform = `translateY(-8px) rotateX(${rx}deg) rotateY(${ry}deg)`;
+const CONSENT_KEY = "vs_cookie_consent";   // "accepted" | "declined"
+
+function getConsent() {
+    try { return localStorage.getItem(CONSENT_KEY); } catch { return null; }
+}
+
+function setConsent(value) {
+    try { localStorage.setItem(CONSENT_KEY, value); } catch { /* storage blocked */ }
+}
+
+// Other scripts (e.g. future analytics) can check: window.vsConsent.status() === "accepted"
+window.vsConsent = { status: () => getConsent() || "unset" };
+
+(function initConsent() {
+    let banner = null;
+
+    function build() {
+        banner = document.createElement("div");
+        banner.className = "consent";
+        banner.id = "cookie-consent";
+        banner.setAttribute("role", "dialog");
+        banner.setAttribute("aria-label", "Cookie preferences");
+        banner.hidden = true;
+        banner.innerHTML = `
+            <span class="consent-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 1 0 10 10 4 4 0 0 1-5-5 4 4 0 0 1-5-5"/><path d="M8.5 8.5v.01"/><path d="M16 15.5v.01"/><path d="M12 12v.01"/><path d="M11 17v.01"/><path d="M7 14v.01"/></svg>
+            </span>
+            <div class="consent-body">
+                <p class="consent-title">Cookies &amp; storage</p>
+                <p class="consent-text">We only use a small piece of browser storage to make the site work, like remembering that you've left a review. No ads and no tracking. <a href="/privacy#cookies">Learn more</a></p>
+            </div>
+            <div class="consent-actions">
+                <button type="button" class="consent-btn consent-btn--ghost" data-consent="declined">Decline</button>
+                <button type="button" class="consent-btn" data-consent="accepted">Accept</button>
+            </div>`;
+        document.body.appendChild(banner);
+
+        banner.querySelectorAll("[data-consent]").forEach(btn => {
+            btn.addEventListener("click", () => {
+                const choice = btn.dataset.consent;
+                setConsent(choice);
+                if (choice === "declined") {
+                    // Declining clears the optional review flag
+                    try { localStorage.removeItem("vs_reviewed"); } catch { /* ignore */ }
+                }
+                document.dispatchEvent(new CustomEvent("vs:consent", { detail: choice }));
+                hide();
+            });
+        });
+    }
+
+    function show(focusButton) {
+        if (!banner) build();
+        banner.hidden = false;
+        banner.classList.remove("is-leaving");
+        // restart the entrance animation when re-opened
+        banner.style.animation = "none";
+        void banner.offsetWidth;
+        banner.style.animation = "";
+        if (focusButton) banner.querySelector('[data-consent="accepted"]').focus();
+    }
+
+    function hide() {
+        if (!banner) return;
+        banner.classList.add("is-leaving");
+        setTimeout(() => {
+            banner.hidden = true;
+            banner.classList.remove("is-leaving");
+        }, 260);
+    }
+
+    // First visit: show after a short pause
+    if (!getConsent()) setTimeout(() => show(false), 700);
+
+    // Footer "Cookie settings" link re-opens the popup
+    document.querySelectorAll("[data-consent-open]").forEach(el => {
+        el.addEventListener("click", () => show(true));
     });
-    card.addEventListener("mouseleave", () => { card.style.transform = ""; });
-});
+})();
 
 /* ================================================
    REVIEWS — Firebase Realtime Database
@@ -112,11 +286,13 @@ function containsProfanity(text) {
 
 /* --- Check if user already reviewed --- */
 function hasReviewed() {
-    return localStorage.getItem(REVIEWED_KEY) === "1";
+    try { return localStorage.getItem(REVIEWED_KEY) === "1"; } catch { return false; }
 }
 
 function markReviewed() {
-    localStorage.setItem(REVIEWED_KEY, "1");
+    // Only remember the review on this device if cookies/storage weren't declined
+    if (getConsent() === "declined") return;
+    try { localStorage.setItem(REVIEWED_KEY, "1"); } catch { /* storage blocked */ }
 }
 
 /* --- UI: hide form if already reviewed --- */
@@ -291,6 +467,9 @@ if (submitBtn) {
 
 /* --- Init --- */
 (async () => {
+    // Only pages that show or accept reviews should talk to the database
+    if (!document.getElementById("reviews-track") && !document.querySelector(".review-form-card")) return;
+
     checkReviewedUI();
     const reviews = await loadReviews();
     renderReviews(reviews);

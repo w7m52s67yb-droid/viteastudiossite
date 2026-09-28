@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Vitea Studios is a Roblox development group building large-scale modded experiences with consistent updates, strong retention, and a growing community of 900,000+ members.">
-    <meta name="theme-color" content="#070707">
+    <meta name="description" content="Vitea Studios is a Roblox development group building large-scale modded experiences with consistent updates, strong retention, and a growing community of 1,000,000+ members.">
+    <meta name="theme-color" content="#08090b">
+    <meta name="color-scheme" content="dark">
 
     <!-- Open Graph -->
     <meta property="og:title" content="Vitea Studios">
@@ -17,221 +18,340 @@
     <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
     <link rel="icon" type="image/png" sizes="192x192" href="favicon-192.png">
     <link rel="apple-touch-icon" sizes="180x180" href="favicon-180.png">
+
     <title>Vitea Studios</title>
+
+    <link rel="preload" href="fonts/bricolage-grotesque-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="fonts/instrument-sans-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="home">
 
-<div class="scroll-progress" id="scroll-progress"></div>
-<div class="stars"></div>
+<a class="skip-link" href="#stats">Skip to content</a>
 
-<nav>
+<nav id="site-nav">
     <div class="logo">
-        <img src="logo.PNG" alt="Vitea Studios logo">
+        <img src="logo.PNG" alt="" width="38" height="38">
         <span>Vitea Studios</span>
     </div>
 
     <div class="nav-links" id="nav-links">
-        <a href="#about">About</a>
+        <a href="#top">Home</a>
         <a href="#projects">Projects</a>
         <a href="#community">Community</a>
         <a href="/events">Events</a>
-        <a href="/reviews">Reviews</a>
-        <a href="/donate">Donate</a>
     </div>
 
-    <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+    <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="nav-links">
         <span></span>
         <span></span>
         <span></span>
     </button>
 </nav>
 
-<header class="hero">
+<header class="showreel" id="top">
 
-    <div class="hero-content">
+    <div class="showreel-media">
+        <video class="showreel-video" id="hero-video"
+               autoplay muted loop playsinline preload="auto"
+               poster="hero-poster.jpg" aria-hidden="true" tabindex="-1">
+            <source src="PLS_DONATE_V__.mp4" type="video/mp4">
+        </video>
 
-        <h1>We make everything you'd expect us to,<br>but better.</h1>
+        <button class="ctrl is-off" id="sound-toggle" type="button" aria-label="Turn video sound on">
+            <svg class="icon-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M19 5a10 10 0 0 1 0 14"/></svg>
+            <svg class="icon-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="m22 9-6 6"/><path d="m16 9 6 6"/></svg>
+        </button>
+    </div>
 
-        <p>
-            Vitea Studios is a Roblox development group focused on building
-            large-scale modded experiences with consistent updates,
-            strong retention, and strong engagement.
-        </p>
+    <div class="showreel-inner">
 
-        <div class="hero-buttons">
+        <div class="showreel-copy">
+            <h1>
+                <span>We make everything you'd expect us to,</span>
+                <span>but <span class="accent-word">better</span>.</span>
+            </h1>
 
-            <a href="https://discord.gg/pdv" target="_blank" rel="noopener" class="btn">
-                Discord Server
-            </a>
+            <p class="showreel-lede">
+                Vitea Studios is a Roblox development group focused on building
+                large-scale modded experiences with consistent updates,
+                strong retention, and strong engagement.
+            </p>
 
-            <a href="https://www.roblox.com/communities/875732740/Vitea-Studios#!/about"
-               target="_blank" rel="noopener" class="btn secondary">
-                Roblox Group
-            </a>
-
+            <div class="showreel-actions">
+                <a href="https://discord.gg/pdv" target="_blank" rel="noopener" class="btn">Discord Server</a>
+                <a href="https://www.roblox.com/communities/875732740/Vitea-Studios#!/about" target="_blank" rel="noopener" class="btn secondary">Roblox Group</a>
+            </div>
         </div>
 
     </div>
 
 </header>
 
-<section id="stats" class="reveal">
+<main>
 
-    <h2>Community Stats</h2>
+<section id="stats" class="stats" aria-labelledby="stats-title">
+    <div class="wrap">
+        <h2 class="sr-only" id="stats-title">Community stats</h2>
 
-    <div class="stats-grid">
-
-        <div class="stat-card">
-            <div class="stat-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        <dl class="stats-row">
+            <div class="stat">
+                <dt>Roblox group members</dt>
+                <dd>1,000,000+</dd>
             </div>
-            <h3>950,000+</h3>
-            <p>Roblox group members</p>
-        </div>
-
-        <div class="stat-card">
-            <div class="stat-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg>
+            <div class="stat">
+                <dt>Total visits across all games</dt>
+                <dd>20,000,000+</dd>
             </div>
-            <h3>20,000,000+</h3>
-            <p>Total visits across all games</p>
-        </div>
- 
-        <div class="stat-card">
-            <div class="stat-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            <div class="stat">
+                <dt>Discord members</dt>
+                <dd>5,000+</dd>
             </div>
-            <h3>5,000+</h3>
-            <p>Discord members</p>
-        </div>
-
-        <div class="stat-card">
-            <div class="stat-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 8.5c0-1.5-1-2.5-2.5-2.5-2 0-3.5.5-7.5.5s-5.5-.5-7.5-.5C3 6 2 7 2 8.5v7c0 1.5 1 2.5 2.5 2.5 2 0 3.5-.5 7.5-.5s5.5.5 7.5.5c1.5 0 2.5-1 2.5-2.5z"/><path d="m10 9 5 3-5 3z"/></svg>
+            <div class="stat">
+                <dt>YouTube subscribers</dt>
+                <dd>1,000+</dd>
             </div>
-            <h3>1,000+</h3>
-            <p>YouTube subscribers</p>
-        </div>
-
+        </dl>
     </div>
-
 </section>
 
-<section id="projects" class="reveal">
+<section id="projects" aria-labelledby="projects-title">
+    <div class="wrap">
+        <h2 id="projects-title">Featured experiences</h2>
 
-    <h2>Featured Experiences</h2>
+        <div class="bento">
 
-    <div class="project-grid">
+            <article class="card card--lead span-7 row-2">
+                <div class="card-body">
+                    <p class="eyebrow"><span class="dot dot--live" aria-hidden="true"></span>01 — Active</p>
+                    <h3>PLS DONATE MODDED</h3>
+                    <p class="card-text">
+                        Our only actively maintained project. It has reached over
+                        6,000,000 visits and continues to receive updates and
+                        improvements from the Vitea Studios team.
+                    </p>
+                </div>
 
-        <div class="project-card">
-            <span class="project-status active">Active</span>
-            <h3>PLS DONATE MODDED</h3>
-            <p>
-                Our only actively maintained project. It consistently holds
-                100+ concurrent players and has reached over 6,000,000 visits.
-                This experience continues to receive updates and improvements
-                from the Vitea Studios team.
-            </p>
+                <div class="card-metric">
+                    <span class="metric">6,000,000+</span>
+                    <span class="metric-label">Total visits</span>
+                </div>
+
+                <div class="spark" aria-hidden="true">
+                    <svg viewBox="0 0 600 200" preserveAspectRatio="none">
+                        <defs>
+                            <linearGradient id="sparkFillA" x1="0" y1="0" x2="0" y2="1">
+                                <stop offset="0" stop-color="#5b8cff" stop-opacity=".28"/>
+                                <stop offset="1" stop-color="#5b8cff" stop-opacity="0"/>
+                            </linearGradient>
+                        </defs>
+                        <path d="M0 190 C 120 188, 200 180, 280 160 S 430 70, 600 16 L600 200 L0 200 Z" fill="url(#sparkFillA)"/>
+                        <path d="M0 190 C 120 188, 200 180, 280 160 S 430 70, 600 16" fill="none" stroke="#5b8cff" stroke-width="2" vector-effect="non-scaling-stroke"/>
+                    </svg>
+                </div>
+            </article>
+
+            <article class="card span-5">
+                <p class="eyebrow"><span class="dot" aria-hidden="true"></span>02 — Discontinued</p>
+                <h3>GROW A GARDEN MODDED</h3>
+                <p class="card-text">
+                    A discontinued but highly successful project. It played a major
+                    role in the growth of our studio and generated strong engagement
+                    and profitability during its active development phase.
+                </p>
+                <div class="chips">
+                    <span class="chip">Growth driver</span>
+                    <span class="chip">High engagement</span>
+                </div>
+            </article>
+
+            <article class="card span-5">
+                <p class="eyebrow"><span class="dot" aria-hidden="true"></span>03 — Discontinued</p>
+                <h3>STEAL A BRAINROT MODDED</h3>
+                <p class="card-text">
+                    A smaller discontinued project that helped our team learn,
+                    experiment, and improve our development process. It contributed
+                    valuable experience that shaped our later successful games.
+                </p>
+                <div class="chips">
+                    <span class="chip">Learning ground</span>
+                    <span class="chip">Process improvement</span>
+                </div>
+            </article>
+
         </div>
-
-        <div class="project-card">
-            <span class="project-status">Discontinued</span>
-            <h3>GROW A GARDEN MODDED</h3>
-            <p>
-                A discontinued but highly successful project. It played a major
-                role in the growth of our studio and generated strong engagement
-                and profitability during its active development phase.
-            </p>
-        </div>
-
-        <div class="project-card">
-            <span class="project-status">Discontinued</span>
-            <h3>STEAL A BRAINROT MODDED</h3>
-            <p>
-                A smaller discontinued project that helped our team learn,
-                experiment, and improve our development process. It contributed
-                valuable experience that shaped our later successful games.
-            </p>
-        </div>
-
     </div>
-
 </section>
 
-<section id="about" class="reveal">
+<section id="about" aria-labelledby="about-title">
+    <div class="wrap">
+        <h2 id="about-title">Who we are</h2>
 
-    <h2>Who We Are</h2>
+        <div class="bento">
 
-    <p class="about-text">
-        Vitea Studios is a Roblox development group built around creating,
-        scaling, and maintaining modded experiences. With a growing
-        audience of over 950,000 members, our focus is on long-term project
-        success, consistent updates, and building games that retain players
-        over time rather than chasing short-term trends. Looking ahead, our
-        team is planning to expand into original, non-modded games. These
-        projects require significant time and resources, so we're taking a
-        slow and steady approach. We're also exploring a future project
-        related to cybersecurity, a field we're passionate about and eager
-        to develop further.
-    </p>
+            <article class="card span-7 row-2">
+                <p class="eyebrow">01 — Studio</p>
+                <h3 class="card-title-lg">Built to last, not to trend.</h3>
+                <p class="card-text">
+                    Vitea Studios is a Roblox development group built around creating,
+                    scaling, and maintaining modded experiences. With a growing
+                    audience of over 1,000,000 members, our focus is on long-term project
+                    success, consistent updates, and building games that retain players
+                    over time rather than chasing short-term trends.
+                </p>
+            </article>
 
-</section>
+            <article class="card card--stat span-5">
+                <div class="card-body">
+                    <p class="eyebrow">02 — Community</p>
+                    <div class="card-metric">
+                        <span class="metric">1,000,000+</span>
+                        <span class="metric-label">Roblox group members</span>
+                    </div>
+                </div>
 
-<section id="community" class="reveal">
+                <div class="spark spark--short" aria-hidden="true">
+                    <svg viewBox="0 0 600 200" preserveAspectRatio="none">
+                        <defs>
+                            <linearGradient id="sparkFillB" x1="0" y1="0" x2="0" y2="1">
+                                <stop offset="0" stop-color="#5b8cff" stop-opacity=".28"/>
+                                <stop offset="1" stop-color="#5b8cff" stop-opacity="0"/>
+                            </linearGradient>
+                        </defs>
+                        <path d="M0 180 C 100 178, 180 170, 260 140 S 420 60, 600 24 L600 200 L0 200 Z" fill="url(#sparkFillB)"/>
+                        <path d="M0 180 C 100 178, 180 170, 260 140 S 420 60, 600 24" fill="none" stroke="#5b8cff" stroke-width="2" vector-effect="non-scaling-stroke"/>
+                    </svg>
+                </div>
+            </article>
 
-    <h2>Find us Everywhere</h2>
+            <article class="card card--stat span-5">
+                <p class="eyebrow">03 — Portfolio</p>
+                <div class="card-metric">
+                    <span class="metric">3</span>
+                    <span class="metric-label">Modded experiences shipped</span>
+                </div>
+                <div class="pips" aria-hidden="true">
+                    <span class="pip pip--on"></span>
+                    <span class="pip"></span>
+                    <span class="pip"></span>
+                </div>
+                <p class="card-note">1 actively maintained</p>
+            </article>
 
-    <div class="community-links">
+            <h3 class="bento-label">What's next</h3>
 
-        <a href="https://discord.gg/pdv" target="_blank" rel="noopener" class="community-link discord">
-            <svg viewBox="0 0 127.14 96.36" fill="currentColor"><path d="M107.7 8.07A105.15 105.15 0 0 0 81.47 0a72.06 72.06 0 0 0-3.36 6.83 97.68 97.68 0 0 0-29.11 0A72.37 72.37 0 0 0 45.64 0a105.89 105.89 0 0 0-26.25 8.09C2.79 32.65-1.71 56.6.54 80.21a105.73 105.73 0 0 0 32.17 16.15 77.7 77.7 0 0 0 6.89-11.11 68.42 68.42 0 0 1-10.85-5.18c.91-.66 1.8-1.34 2.66-2a75.57 75.57 0 0 0 64.32 0c.87.71 1.76 1.39 2.66 2a68.68 68.68 0 0 1-10.87 5.19 77 77 0 0 0 6.89 11.1 105.25 105.25 0 0 0 32.19-16.14c2.64-27.38-4.51-51.11-18.9-72.15ZM42.45 65.69C36.18 65.69 31 60 31 53s5-12.74 11.43-12.74S54 46 53.89 53s-5.05 12.69-11.44 12.69Zm42.24 0C78.41 65.69 73.25 60 73.25 53s5-12.74 11.44-12.74S96.23 46 96.12 53s-5.04 12.69-11.43 12.69Z"/></svg>
-            Discord
-        </a>
+            <article class="card card--next span-6">
+                <span class="card-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="6" x2="10" y1="12" y2="12"/><line x1="8" x2="8" y1="10" y2="14"/><line x1="15" x2="15.01" y1="13" y2="13"/><line x1="18" x2="18.01" y1="11" y2="11"/><rect width="20" height="12" x="2" y="6" rx="2"/></svg>
+                </span>
+                <p class="eyebrow">04 — Next</p>
+                <h3>Original, non-modded games</h3>
+                <p class="card-text">These projects require significant time and resources, so we're taking a slow and steady approach.</p>
+            </article>
 
-        <a href="https://www.youtube.com/@viteastudios" target="_blank" rel="noopener" class="community-link youtube">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
-            YouTube
-        </a>
+            <article class="card card--next span-6">
+                <span class="card-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></svg>
+                </span>
+                <p class="eyebrow">05 — Next</p>
+                <h3>A cybersecurity project</h3>
+                <p class="card-text">A field we're passionate about and eager to develop further.</p>
+            </article>
 
-        <a href="https://www.roblox.com/communities/875732740/Vitea-Studios#!/about" target="_blank" rel="noopener" class="community-link roblox">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.968 0L0 19.032 19.032 24 24 4.968zm9.381 13.712l-3.681-.992.992-3.68 3.681.992z"/></svg>
-            Roblox Group
-        </a>
-
-        <a href="https://x.com/viteadev" target="_blank" rel="noopener" class="community-link twitter">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.253 5.622 5.911-5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-            Twitter
-        </a>
-
-        <a href="/donate" class="community-link paypal">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M7.076 21.337H2.47a.641.641 0 0 1-.633-.74L4.944.901C5.026.382 5.474 0 5.998 0h7.46c2.57 0 4.578.543 5.69 1.81 1.01 1.15 1.304 2.42 1.012 4.287-.023.143-.047.288-.077.437-.983 5.05-4.349 6.797-8.647 6.797h-2.19c-.524 0-.968.382-1.05.9l-1.12 7.106zm14.146-14.42a3.35 3.35 0 0 0-.607-.541c-.013.076-.026.175-.041.254-.93 4.778-4.005 7.201-9.138 7.201h-2.19a.563.563 0 0 0-.556.479l-1.187 7.527h-.506l-.24 1.516a.56.56 0 0 0 .554.647h3.882c.46 0 .85-.334.922-.788.06-.26.76-4.852.816-5.09a.932.932 0 0 1 .923-.788h.58c3.76 0 6.705-1.528 7.565-5.946.36-1.847.174-3.388-.777-4.471z"/></svg>
-            Fund Us
-        </a>
- 
+        </div>
     </div>
-
 </section>
+
+<section id="community" class="community" aria-labelledby="community-title">
+    <div class="wrap">
+        <h2 id="community-title">Find us everywhere</h2>
+
+        <div class="socials">
+            <a href="https://discord.gg/pdv" target="_blank" rel="noopener" class="tile" style="--rgb:122,134,255">
+                <span class="tile-icon">
+                    <svg viewBox="0 0 127.14 96.36" fill="currentColor" aria-hidden="true"><path d="M107.7 8.07A105.15 105.15 0 0 0 81.47 0a72.06 72.06 0 0 0-3.36 6.83 97.68 97.68 0 0 0-29.11 0A72.37 72.37 0 0 0 45.64 0a105.89 105.89 0 0 0-26.25 8.09C2.79 32.65-1.71 56.6.54 80.21a105.73 105.73 0 0 0 32.17 16.15 77.7 77.7 0 0 0 6.89-11.11 68.42 68.42 0 0 1-10.85-5.18c.91-.66 1.8-1.34 2.66-2a75.57 75.57 0 0 0 64.32 0c.87.71 1.76 1.39 2.66 2a68.68 68.68 0 0 1-10.87 5.19 77 77 0 0 0 6.89 11.1 105.25 105.25 0 0 0 32.19-16.14c2.64-27.38-4.51-51.11-18.9-72.15ZM42.45 65.69C36.18 65.69 31 60 31 53s5-12.74 11.43-12.74S54 46 53.89 53s-5.05 12.69-11.44 12.69Zm42.24 0C78.41 65.69 73.25 60 73.25 53s5-12.74 11.44-12.74S96.23 46 96.12 53s-5.04 12.69-11.43 12.69Z"/></svg>
+                </span>
+                <span class="tile-text">
+                    <span class="tile-name">Discord</span>
+                    <span class="tile-detail">5,000+ members</span>
+                </span>
+                <svg class="tile-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg>
+            </a>
+
+            <a href="https://www.youtube.com/@viteastudios" target="_blank" rel="noopener" class="tile" style="--rgb:255,74,74">
+                <span class="tile-icon">
+                    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                </span>
+                <span class="tile-text">
+                    <span class="tile-name">YouTube</span>
+                    <span class="tile-detail">1,000+ subscribers</span>
+                </span>
+                <svg class="tile-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg>
+            </a>
+
+            <a href="https://www.roblox.com/communities/875732740/Vitea-Studios#!/about" target="_blank" rel="noopener" class="tile" style="--rgb:255,255,255">
+                <span class="tile-icon">
+                    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.968 0L0 19.032 19.032 24 24 4.968zm9.381 13.712l-3.681-.992.992-3.68 3.681.992z"/></svg>
+                </span>
+                <span class="tile-text">
+                    <span class="tile-name">Roblox Group</span>
+                    <span class="tile-detail">1,000,000+ members</span>
+                </span>
+                <svg class="tile-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg>
+            </a>
+
+            <a href="https://x.com/viteadev" target="_blank" rel="noopener" class="tile" style="--rgb:58,169,245">
+                <span class="tile-icon">
+                    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.253 5.622 5.911-5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                </span>
+                <span class="tile-text">
+                    <span class="tile-name">Twitter</span>
+                    <span class="tile-detail">@viteadev</span>
+                </span>
+                <svg class="tile-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg>
+            </a>
+        </div>
+
+        <div class="contact">
+            <span class="tile-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+            </span>
+            <span class="contact-text">
+                <span class="contact-label">Email us</span>
+                <a class="contact-mail" href="mailto:viteastudios@gmail.com">viteastudios@gmail.com</a>
+            </span>
+            <button type="button" class="copy-btn" id="copy-email" data-email="viteastudios@gmail.com">
+                <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+                <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+                <span class="copy-label">Copy</span>
+            </button>
+            <span class="sr-only" id="copy-status" role="status" aria-live="polite"></span>
+        </div>
+    </div>
+</section>
+
+</main>
 
 <footer>
     <div class="footer-inner">
         <div class="footer-logo">
-            <img src="logo.PNG" alt="Vitea Studios">
+            <img src="logo.PNG" alt="" width="30" height="30">
             <span>Vitea Studios</span>
         </div>
-        <p class="footer-copy">© 2023-2026 Vitea Studios Network — All rights reserved.</p>
+        <p class="footer-copy">© 2023-2026 Vitea Studios Network — All rights reserved. · <a href="/privacy">Privacy Policy</a> · <button type="button" class="footer-link-btn" data-consent-open>Cookie settings</button></p>
         <div class="footer-links">
             <a href="https://discord.gg/pdv" target="_blank" rel="noopener" aria-label="Discord">
-                <svg viewBox="0 0 127.14 96.36" fill="currentColor"><path d="M107.7 8.07A105.15 105.15 0 0 0 81.47 0a72.06 72.06 0 0 0-3.36 6.83 97.68 97.68 0 0 0-29.11 0A72.37 72.37 0 0 0 45.64 0a105.89 105.89 0 0 0-26.25 8.09C2.79 32.65-1.71 56.6.54 80.21a105.73 105.73 0 0 0 32.17 16.15 77.7 77.7 0 0 0 6.89-11.11 68.42 68.42 0 0 1-10.85-5.18c.91-.66 1.8-1.34 2.66-2a75.57 75.57 0 0 0 64.32 0c.87.71 1.76 1.39 2.66 2a68.68 68.68 0 0 1-10.87 5.19 77 77 0 0 0 6.89 11.1 105.25 105.25 0 0 0 32.19-16.14c2.64-27.38-4.51-51.11-18.9-72.15ZM42.45 65.69C36.18 65.69 31 60 31 53s5-12.74 11.43-12.74S54 46 53.89 53s-5.05 12.69-11.44 12.69Zm42.24 0C78.41 65.69 73.25 60 73.25 53s5-12.74 11.44-12.74S96.23 46 96.12 53s-5.04 12.69-11.43 12.69Z"/></svg>
+                <svg viewBox="0 0 127.14 96.36" fill="currentColor" aria-hidden="true"><path d="M107.7 8.07A105.15 105.15 0 0 0 81.47 0a72.06 72.06 0 0 0-3.36 6.83 97.68 97.68 0 0 0-29.11 0A72.37 72.37 0 0 0 45.64 0a105.89 105.89 0 0 0-26.25 8.09C2.79 32.65-1.71 56.6.54 80.21a105.73 105.73 0 0 0 32.17 16.15 77.7 77.7 0 0 0 6.89-11.11 68.42 68.42 0 0 1-10.85-5.18c.91-.66 1.8-1.34 2.66-2a75.57 75.57 0 0 0 64.32 0c.87.71 1.76 1.39 2.66 2a68.68 68.68 0 0 1-10.87 5.19 77 77 0 0 0 6.89 11.1 105.25 105.25 0 0 0 32.19-16.14c2.64-27.38-4.51-51.11-18.9-72.15ZM42.45 65.69C36.18 65.69 31 60 31 53s5-12.74 11.43-12.74S54 46 53.89 53s-5.05 12.69-11.44 12.69Zm42.24 0C78.41 65.69 73.25 60 73.25 53s5-12.74 11.44-12.74S96.23 46 96.12 53s-5.04 12.69-11.43 12.69Z"/></svg>
             </a>
             <a href="https://x.com/viteadev" target="_blank" rel="noopener" aria-label="Twitter / X">
-                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.253 5.622 5.911-5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.253 5.622 5.911-5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
             </a>
             <a href="https://www.youtube.com/@viteastudios" target="_blank" rel="noopener" aria-label="YouTube">
-                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
             </a>
         </div>
     </div>
+    <p class="footer-credit">Website powered and hosted by <a href="https://midnightwebs.com" target="_blank" rel="noopener">Midnight Webs</a></p>
 </footer>
 
 <script src="script.js"></script>
