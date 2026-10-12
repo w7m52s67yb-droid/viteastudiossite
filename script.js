@@ -38,6 +38,78 @@ if (navToggle && navLinks) {
 }
 
 /* ================================================
+   NAV ACTIVE STATE (click + scroll-spy)
+   ================================================ */
+(function () {
+    if (!navLinks) return;
+
+    const items = [...navLinks.querySelectorAll('a[href^="#"]')]
+        .map(link => ({ link, target: document.querySelector(link.getAttribute("href")) }))
+        .filter(item => item.target);
+
+    if (!items.length) return;
+
+    let current = null;
+    let locked = false;
+    let lockTimer = null;
+    let ticking = false;
+
+    const setActive = (link) => {
+        if (link === current) return;
+        current = link;
+        items.forEach(item => {
+            const on = item.link === link;
+            item.link.classList.toggle("nav-active", on);
+            if (on) item.link.setAttribute("aria-current", "location");
+            else item.link.removeAttribute("aria-current");
+        });
+    };
+
+    const navH = () => document.getElementById("site-nav")?.offsetHeight || 68;
+
+    const update = () => {
+        ticking = false;
+        if (locked) return;
+
+        const probe = navH() + 80;
+        const atBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4;
+        let active = items[0];
+
+        if (atBottom) {
+            active = items[items.length - 1];
+        } else {
+            items.forEach(item => {
+                if (item.target.getBoundingClientRect().top <= probe) active = item;
+            });
+        }
+        setActive(active.link);
+    };
+
+    const unlockSoon = (delay) => {
+        clearTimeout(lockTimer);
+        lockTimer = setTimeout(() => { locked = false; update(); }, delay);
+    };
+
+    // Clicking sets the state right away and holds it until the smooth scroll settles
+    items.forEach(item => {
+        item.link.addEventListener("click", () => {
+            setActive(item.link);
+            locked = true;
+            unlockSoon(1200);
+        });
+    });
+
+    window.addEventListener("scroll", () => {
+        if (locked) unlockSoon(160);
+        if (!ticking) { ticking = true; requestAnimationFrame(update); }
+    }, { passive: true });
+
+    window.addEventListener("resize", update);
+    window.addEventListener("load", update);
+    update();
+})();
+
+/* ================================================
    CARD / TILE SPOTLIGHT
    ================================================ */
 document.querySelectorAll(".card, .tile").forEach(el => {
@@ -225,7 +297,6 @@ window.vsConsent = { status: () => getConsent() || "unset" };
                 const choice = btn.dataset.consent;
                 setConsent(choice);
                 if (choice === "declined") {
-                    // Declining clears the optional review flag
                     try { localStorage.removeItem("vs_reviewed"); } catch { /* ignore */ }
                 }
                 document.dispatchEvent(new CustomEvent("vs:consent", { detail: choice }));

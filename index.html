@@ -36,7 +36,7 @@
     </div>
 
     <div class="nav-links" id="nav-links">
-        <a href="#top">Home</a>
+        <a href="#top" class="nav-active" aria-current="location">Home</a>
         <a href="#projects">Projects</a>
         <a href="#community">Community</a>
         <a href="/events">Events</a>
@@ -68,8 +68,8 @@
 
         <div class="showreel-copy">
             <h1>
-                <span>We make everything you'd expect us to,</span>
-                <span>but <span class="accent-word">better</span>.</span>
+                <span class="line"><span class="w" style="--i:0"><span>We</span></span> <span class="w" style="--i:1"><span>make</span></span> <span class="w" style="--i:2"><span>everything</span></span> <span class="w" style="--i:3"><span>you'd</span></span> <span class="w" style="--i:4"><span>expect</span></span> <span class="w" style="--i:5"><span>us</span></span> <span class="w" style="--i:6"><span>to,</span></span></span>
+                <span class="line"><span class="w" style="--i:7"><span>but</span></span> <span class="w accent-word" style="--i:8"><span>better</span></span><span class="w" style="--i:9"><span>.</span></span></span>
             </h1>
 
             <p class="showreel-lede">
@@ -101,7 +101,11 @@
             </div>
             <div class="stat">
                 <dt>Total visits across all games</dt>
-                <dd>20,000,000+</dd>
+                <dd>22,000,000+</dd>
+            </div>
+            <div class="stat">
+                <dt>Peak concurrent players (CCU)</dt>
+                <dd>6,000+</dd>
             </div>
             <div class="stat">
                 <dt>Discord members</dt>
@@ -117,7 +121,7 @@
 
 <section id="projects" aria-labelledby="projects-title">
     <div class="wrap">
-        <h2 id="projects-title">Featured experiences</h2>
+        <h2 id="projects-title">Game Projects</h2>
 
         <div class="bento">
 
@@ -127,13 +131,13 @@
                     <h3>PLS DONATE MODDED</h3>
                     <p class="card-text">
                         Our only actively maintained project. It has reached over
-                        6,000,000 visits and continues to receive updates and
+                        8,000,000 visits and continues to receive updates and
                         improvements from the Vitea Studios team.
                     </p>
                 </div>
 
                 <div class="card-metric">
-                    <span class="metric">6,000,000+</span>
+                    <span class="metric">8,000,000+</span>
                     <span class="metric-label">Total visits</span>
                 </div>
 
@@ -159,6 +163,10 @@
                     role in the growth of our studio and generated strong engagement
                     and profitability during its active development phase.
                 </p>
+                <div class="card-metric card-metric--tight">
+                    <span class="metric metric--sm">7,000,000+</span>
+                    <span class="metric-label">Total visits</span>
+                </div>
                 <div class="chips">
                     <span class="chip">Growth driver</span>
                     <span class="chip">High engagement</span>
@@ -166,16 +174,41 @@
             </article>
 
             <article class="card span-5">
-                <p class="eyebrow"><span class="dot" aria-hidden="true"></span>03 — Discontinued</p>
-                <h3>STEAL A BRAINROT MODDED</h3>
+                <p class="eyebrow"><span class="dot" aria-hidden="true"></span>03 — Inactive</p>
+                <h3>DONATE ME</h3>
                 <p class="card-text">
-                    A smaller discontinued project that helped our team learn,
-                    experiment, and improve our development process. It contributed
-                    valuable experience that shaped our later successful games.
+                    An inactive project built around real Robux donations. It
+                    reached over 6,000,000 visits for our studio and showed what
+                    a community-driven experience could do.
                 </p>
+                <div class="card-metric card-metric--tight">
+                    <span class="metric metric--sm">6,000,000+</span>
+                    <span class="metric-label">Total visits</span>
+                </div>
                 <div class="chips">
-                    <span class="chip">Learning ground</span>
-                    <span class="chip">Process improvement</span>
+                    <span class="chip">Real Robux donations</span>
+                    <span class="chip">Community driven</span>
+                </div>
+            </article>
+
+            <article class="card card--wide span-12">
+                <div class="card-body">
+                    <p class="eyebrow"><span class="dot" aria-hidden="true"></span>04 — Discontinued</p>
+                    <h3>STEAL A BRAINROT MODDED</h3>
+                    <p class="card-text">
+                        A smaller discontinued project that helped our team learn,
+                        experiment, and improve our development process. It contributed
+                        valuable experience that shaped our later successful games.
+                    </p>
+                    <div class="chips">
+                        <span class="chip">Learning ground</span>
+                        <span class="chip">Process improvement</span>
+                    </div>
+                </div>
+
+                <div class="card-metric">
+                    <span class="metric">1,000,000+</span>
+                    <span class="metric-label">Visits incl. adjacent games</span>
                 </div>
             </article>
 
@@ -185,7 +218,7 @@
 
 <section id="about" aria-labelledby="about-title">
     <div class="wrap">
-        <h2 id="about-title">Who we are</h2>
+        <h2 id="about-title">About Vitea Studios</h2>
 
         <div class="bento">
 
@@ -227,11 +260,12 @@
             <article class="card card--stat span-5">
                 <p class="eyebrow">03 — Portfolio</p>
                 <div class="card-metric">
-                    <span class="metric">3</span>
+                    <span class="metric">4</span>
                     <span class="metric-label">Modded experiences shipped</span>
                 </div>
                 <div class="pips" aria-hidden="true">
                     <span class="pip pip--on"></span>
+                    <span class="pip"></span>
                     <span class="pip"></span>
                     <span class="pip"></span>
                 </div>
@@ -338,7 +372,7 @@
             <img src="logo.PNG" alt="" width="30" height="30">
             <span>Vitea Studios</span>
         </div>
-        <p class="footer-copy">© 2023-2026 Vitea Studios Network — All rights reserved. · <a href="/privacy">Privacy Policy</a> · <button type="button" class="footer-link-btn" data-consent-open>Cookie settings</button></p>
+        <p class="footer-copy">© 2023-2026 Vitea Studios Network. All rights reserved. · <a href="/privacy">Privacy Policy</a> · <button type="button" class="footer-link-btn" data-consent-open>Cookie settings</button></p>
         <div class="footer-links">
             <a href="https://discord.gg/pdv" target="_blank" rel="noopener" aria-label="Discord">
                 <svg viewBox="0 0 127.14 96.36" fill="currentColor" aria-hidden="true"><path d="M107.7 8.07A105.15 105.15 0 0 0 81.47 0a72.06 72.06 0 0 0-3.36 6.83 97.68 97.68 0 0 0-29.11 0A72.37 72.37 0 0 0 45.64 0a105.89 105.89 0 0 0-26.25 8.09C2.79 32.65-1.71 56.6.54 80.21a105.73 105.73 0 0 0 32.17 16.15 77.7 77.7 0 0 0 6.89-11.11 68.42 68.42 0 0 1-10.85-5.18c.91-.66 1.8-1.34 2.66-2a75.57 75.57 0 0 0 64.32 0c.87.71 1.76 1.39 2.66 2a68.68 68.68 0 0 1-10.87 5.19 77 77 0 0 0 6.89 11.1 105.25 105.25 0 0 0 32.19-16.14c2.64-27.38-4.51-51.11-18.9-72.15ZM42.45 65.69C36.18 65.69 31 60 31 53s5-12.74 11.43-12.74S54 46 53.89 53s-5.05 12.69-11.44 12.69Zm42.24 0C78.41 65.69 73.25 60 73.25 53s5-12.74 11.44-12.74S96.23 46 96.12 53s-5.04 12.69-11.43 12.69Z"/></svg>
